@@ -3,6 +3,10 @@ public class Main {
         return "Hello, " + name + "!";
     }
 
+    public void test() {
+        System.out.println("testing");
+    }
+
     public static void main(String[] args) {
         Main main = new Main();
         System.out.println(main.greet("Jenkins"));
