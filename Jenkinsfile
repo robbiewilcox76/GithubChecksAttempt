@@ -13,9 +13,11 @@ pipeline {
                     try {
                         // test 2
                         // Compile the Java files in the root directory (Main.java)
+                        publishCheck(name: 'Build Status', status: 'pending') // Publish pending status
                         sh 'javac -d out Main.java'
                     } catch (e) {
                         // In case of failure, mark the build as unstable
+                        publishCheck(name: 'Build Status', status: 'failure', summary: 'Build Failed') // Publish success status
                         currentBuild.result = 'FAILURE'
                         throw e
                     }
@@ -39,11 +41,13 @@ pipeline {
 
         success {
             echo 'Build and tests succeeded.'
+            publishCheck(name: 'Build Status', status: 'success', summary: 'Build succedded') // Publish failure status
             // Report success to GitHub Checks
         }
 
         failure {
             echo 'Build or tests failed.'
+            publishCheck(name: 'Build Status', status: 'failure', summary: 'Build Failed') // Publish success statu
             // Report failure to GitHub Checks
         }
     }
