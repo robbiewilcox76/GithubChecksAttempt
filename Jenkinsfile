@@ -6,47 +6,71 @@ pipeline {
         PATH = "$JAVA_HOME/bin:$PATH"
     }
 
-stages {
-    stage('Compile') {
-        steps {
-            script {
-                // Start the check
-                publishChecks(
-                    name: 'Build',
-                    title: 'Build Stage', 
-                    summary: 'Building the project...', 
-                    status: 'IN_PROGRESS',
-                    detailsURL: "${env.BUILD_URL}",
-                )
-                try {
-                    // Compile the Java files in the root directory (Main.java)
-                    sh 'javac -d out Main.java'
-
-                    // Check succeeded
+    stages {
+        stage('Compile') {
+            steps {
+                script {
+                    // Start the check
                     publishChecks(
                         name: 'Build',
                         title: 'Build Stage', 
-                        summary: 'Build success!', 
-                        status: 'COMPLETED',
-                        conclusion: 'SUCCESS',
+                        summary: 'Building the project...', 
+                        status: 'IN_PROGRESS',
                         detailsURL: "${env.BUILD_URL}",
                     )
-                } catch (e) {
-                    // Check failed
+                    try {
+                        // Compile the Java files in the root directory (Main.java)
+                        sh 'javac -d out Main.java'
+
+                        // Check succeeded
+                        publishChecks(
+                            name: 'Build',
+                            title: 'Build Stage', 
+                            summary: 'Build success!', 
+                            status: 'COMPLETED',
+                            conclusion: 'SUCCESS',
+                            detailsURL: "${env.BUILD_URL}",
+                        )
+                    } catch (e) {
+                        // Check failed
+                        publishChecks(
+                            name: 'Build',
+                            title: 'Build Stage', 
+                            summary: 'Build failed :(', 
+                            status: 'COMPLETED',
+                            conclusion: 'FAILURE',
+                            detailsURL: "${env.BUILD_URL}",
+                        )
+                        currentBuild.result = 'FAILURE'
+                        throw e
+                    }
+                }
+            }
+        }
+
+        stage('Dummy Stage') {
+            steps {
+                script {
+                    // This will cause the stage to fail
                     publishChecks(
-                        name: 'Build',
-                        title: 'Build Stage', 
-                        summary: 'Build failed :(', 
+                        name: 'Dummy Check',
+                        title: 'Dummy Check', 
+                        summary: 'Dummy Check', 
+                        status: 'IN_PROGRESS',
+                        detailsURL: "${env.BUILD_URL}",
+                    )
+                    echo "This is a dummy stage that will fail"
+                    publishChecks(
+                        name: 'Dummy Check',
+                        title: 'Dummy Check', 
+                        summary: 'Dummy Check', 
                         status: 'COMPLETED',
                         conclusion: 'FAILURE',
                         detailsURL: "${env.BUILD_URL}",
                     )
-                    currentBuild.result = 'FAILURE'
-                    throw e
                 }
             }
         }
-    }
 
         stage('Archive Build') {
             steps {
