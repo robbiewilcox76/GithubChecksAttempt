@@ -31,7 +31,6 @@ stages {
                         status: 'COMPLETED',
                         conclusion: 'SUCCESS',
                         detailsURL: '${env.BUILD_URL}',
-                        image = 'https://pokemon-fans.fandom.com/wiki/Torrent'
                     )
                 } catch (e) {
                     // Check failed
@@ -42,7 +41,6 @@ stages {
                         status: 'COMPLETED',
                         conclusion: 'FAILURE',
                         detailsURL: '$env.BUILD_URL',
-                        image = 'https://pokemon-fans.fandom.com/wiki/Torrent'
                     )
                     currentBuild.result = 'FAILURE'
                     throw e
