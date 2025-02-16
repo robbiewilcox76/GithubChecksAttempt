@@ -11,6 +11,7 @@ pipeline {
             steps {
                 script {
                     try {
+                        publishChecks name: 'Build', title: 'Build Stage', summary: 'Building the project...', status: 'IN_PROGRESS'
                         // Compile the Java files in the root directory (Main.java)
                         sh 'javac -d out Main.java'
                     } catch (e) {
