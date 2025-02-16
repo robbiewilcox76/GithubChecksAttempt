@@ -41,6 +41,7 @@ pipeline {
                             conclusion: 'FAILURE',
                             detailsURL: "${env.BUILD_URL}",
                         )
+                        currentBuild.result = 'FAILURE'
                         throw e
                     }
                 }
@@ -51,23 +52,18 @@ pipeline {
             steps {
                 script {
                     // This will cause the stage to fail
-                    publishChecks(
-                        name: 'Dummy Check',
-                        title: 'Dummy Check', 
-                        summary: 'Dummy Check', 
-                        status: 'IN_PROGRESS',
-                        detailsURL: "${env.BUILD_URL}",
-                    )
-                    echo "This is a dummy stage that will fail"
-                    publishChecks(
-                        name: 'Dummy Check',
-                        title: 'Dummy Check', 
-                        summary: 'Dummy Check', 
-                        status: 'COMPLETED',
-                        conclusion: 'FAILURE',
-                        detailsURL: "${env.BUILD_URL}",
-                    )
-                    currentBuild.result = 'FAILURE'
+                    withChecks(name: 'Tests', includeStage: true) {
+                        echo "this check will pass"
+                        publishChecks(
+                            name: 'Dummy Check',
+                            title: 'Dummy Check', 
+                            summary: 'Dummy Check', 
+                            status: 'COMPLETED',
+                            conclusion: 'FAILURE',
+                            detailsURL: "${env.BUILD_URL}",
+                        )
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
