@@ -18,7 +18,7 @@ stages {
                     status: 'IN_PROGRESS',
                     detailsURL: "${env.BUILD_URL}",
                 )
-                sleep(30000)
+                sleep(15)
                 try {
                     // Compile the Java files in the root directory (Main.java)
                     sh 'javac -d out Main.java'
