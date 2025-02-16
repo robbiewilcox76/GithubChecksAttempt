@@ -30,7 +30,7 @@ stages {
                         summary: 'Build success!', 
                         status: 'COMPLETED',
                         conclusion: 'SUCCESS',
-                        detailsURL: '${env.BUILD_URL}',
+                        detailsURL: "${env.BUILD_URL}",
                     )
                 } catch (e) {
                     // Check failed
@@ -40,7 +40,7 @@ stages {
                         summary: 'Build failed :(', 
                         status: 'COMPLETED',
                         conclusion: 'FAILURE',
-                        detailsURL: '$env.BUILD_URL',
+                        detailsURL: "${env.BUILD_URL}",
                     )
                     currentBuild.result = 'FAILURE'
                     throw e
