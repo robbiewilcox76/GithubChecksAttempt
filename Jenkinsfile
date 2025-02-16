@@ -54,15 +54,6 @@ pipeline {
                     // This will cause the stage to fail
                     withChecks(name: 'Tests', includeStage: true) {
                         echo "this check will pass"
-                        publishChecks(
-                            name: 'Dummy Check',
-                            title: 'Dummy Check', 
-                            summary: 'Dummy Check', 
-                            status: 'COMPLETED',
-                            conclusion: 'FAILURE',
-                            detailsURL: "${env.BUILD_URL}",
-                        )
-                        currentBuild.result = 'FAILURE'
                     }
                 }
             }
