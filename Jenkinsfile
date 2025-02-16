@@ -17,8 +17,8 @@ stages {
                     summary: 'Building the project...', 
                     status: 'IN_PROGRESS',
                     detailsURL: "${env.BUILD_URL}",
-                    image = 'https://pokemon-fans.fandom.com/wiki/Torrent'
                 )
+                sleep(30000)
                 try {
                     // Compile the Java files in the root directory (Main.java)
                     sh 'javac -d out Main.java'
@@ -41,7 +41,7 @@ stages {
                         summary: 'Build failed :(', 
                         status: 'COMPLETED',
                         conclusion: 'FAILURE',
-                        detailsURL: "${env.BUILD_URL}",
+                        detailsURL: '$env.BUILD_URL',
                         image = 'https://pokemon-fans.fandom.com/wiki/Torrent'
                     )
                     currentBuild.result = 'FAILURE'
