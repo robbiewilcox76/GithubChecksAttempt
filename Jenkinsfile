@@ -51,7 +51,6 @@ pipeline {
         stage('Dummy Stage') {
             steps {
                 script {
-                    // This will cause the stage to fail
                     publishChecks(
                         name: 'Dummy Check',
                         title: 'Dummy Check', 
@@ -64,10 +63,9 @@ pipeline {
                         title: 'Dummy Check', 
                         summary: 'Dummy Check', 
                         status: 'COMPLETED',
-                        conclusion: 'FAILURE',
+                        conclusion: 'SUCCESS',
                         detailsURL: "${env.BUILD_URL}",
                     )
-                    currentBuild.result = 'FAILURE'
                 }
             }
         }
