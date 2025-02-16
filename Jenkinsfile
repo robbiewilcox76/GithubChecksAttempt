@@ -11,8 +11,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Compile the Java files
-                        sh 'javac -d out src/*.java'
+                        // Compile the Java files in the root directory (Main.java and MainTest.java)
+                        sh 'javac -d out Main.java MainTest.java'
                     } catch (e) {
                         // In case of failure, mark the build as unstable
                         currentBuild.result = 'FAILURE'
@@ -26,8 +26,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Run the tests using JUnit
-                        sh 'java -cp "out:libs/*" org.junit.platform.console.ConsoleLauncher --scan-classpath'
+                        // Run the tests using JUnit (adjust classpath to use the "out" directory)
+                        sh 'java -cp "out:libs/*" org.junit.runner.JUnitCore MainTest'
                     } catch (e) {
                         // In case of test failure, mark the build as unstable
                         currentBuild.result = 'FAILURE'
