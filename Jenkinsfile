@@ -11,38 +11,39 @@ pipeline {
             steps {
                 script {
                     // Start the check
-                    publishChecks(
-                        name: 'Build',
-                        title: 'Build Stage', 
-                        summary: 'Building the project...', 
-                        status: 'IN_PROGRESS',
-                        detailsURL: "${env.BUILD_URL}",
-                    )
-                    try {
-                        // Compile the Java files in the root directory (Main.java)
-                        sh 'javac -d out Main.java'
+                    withChecks() { 
+                            name: 'Build',
+                            title: 'Build Stage', 
+                            summary: 'Building the project...', 
+                            status: 'IN_PROGRESS',
+                            detailsURL: "${env.BUILD_URL}",
+                        
+                        try {
+                            // Compile the Java files in the root directory (Main.java)
+                            sh 'javac -d out Main.java'
 
-                        // Check succeeded
-                        publishChecks(
-                            name: 'Build',
-                            title: 'Build Stage', 
-                            summary: 'Build success!', 
-                            status: 'COMPLETED',
-                            conclusion: 'SUCCESS',
-                            detailsURL: "${env.BUILD_URL}",
-                        )
-                    } catch (e) {
-                        // Check failed
-                        publishChecks(
-                            name: 'Build',
-                            title: 'Build Stage', 
-                            summary: 'Build failed :(', 
-                            status: 'COMPLETED',
-                            conclusion: 'FAILURE',
-                            detailsURL: "${env.BUILD_URL}",
-                        )
-                        currentBuild.result = 'FAILURE'
-                        throw e
+                            // Check succeeded
+                            publishChecks(
+                                name: 'Build',
+                                title: 'Build Stage', 
+                                summary: 'Build success!', 
+                                status: 'COMPLETED',
+                                conclusion: 'SUCCESS',
+                                detailsURL: "${env.BUILD_URL}",
+                            )
+                        } catch (e) {
+                            // Check failed
+                            publishChecks(
+                                name: 'Build',
+                                title: 'Build Stage', 
+                                summary: 'Build failed :(', 
+                                status: 'COMPLETED',
+                                conclusion: 'FAILURE',
+                                detailsURL: "${env.BUILD_URL}",
+                            )
+                            currentBuild.result = 'FAILURE'
+                            throw e
+                        }
                     }
                 }
             }
