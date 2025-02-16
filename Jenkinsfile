@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        // test
+                        // test 2
                         // Compile the Java files in the root directory (Main.java)
                         sh 'javac -d out Main.java'
                     } catch (e) {
