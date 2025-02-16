@@ -10,12 +10,30 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
+                    publishChecks 
+                        name: 'Build',
+                        title: 'Build Stage', 
+                        summary: 'Building the project...', 
+                        status: 'IN_PROGRESS',
+                        detailsURL: "${env.BUILD_URL}"
                     try {
-                        publishChecks name: 'Build', title: 'Build Stage', summary: 'Building the project...', status: 'IN_PROGRESS'
                         // Compile the Java files in the root directory (Main.java)
                         sh 'javac -d out Main.java'
+
+                        publishChecks 
+                            name: 'Build',
+                            title: 'Build Stage', 
+                            summary: 'Build success!', 
+                            status: 'SUCCESSS',
+                            detailsURL: "${env.BUILD_URL}"
                     } catch (e) {
                         // In case of failure, mark the build as unstable
+                        publishChecks 
+                            name: 'Build',
+                            title: 'Build Stage', 
+                            summary: 'Build failed :(', 
+                            status: 'FAILURE',
+                            detailsURL: "${env.BUILD_URL}"
                         currentBuild.result = 'FAILURE'
                         throw e
                     }
