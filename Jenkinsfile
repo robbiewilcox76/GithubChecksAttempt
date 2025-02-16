@@ -41,7 +41,6 @@ pipeline {
                             conclusion: 'FAILURE',
                             detailsURL: "${env.BUILD_URL}",
                         )
-                        currentBuild.result = 'FAILURE'
                         throw e
                     }
                 }
