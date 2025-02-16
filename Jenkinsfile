@@ -35,9 +35,10 @@ pipeline {
                         // Check failed
                         publishChecks(
                             name: 'Build',
-                            title: 'line coverage 75%, branch coverage 72.3%',
-                            summary: 'Uint test coverage',
+                            title: 'Build Stage',
+                            summary: 'Build failed :(',
                             status: 'COMPLETED',
+                            conclusion: 'FAILURE',
                             detailsURL: "${env.BUILD_URL}",
                         )
                         currentBuild.result = 'FAILURE'
@@ -73,10 +74,10 @@ pipeline {
             steps {
                 script {
                     publishChecks(
-                        name: 'Build',
-                        title: 'Build Stage',
-                        summary: 'Building the project...',
-                        status: 'IN_PROGRESS',
+                        name: 'Unit test coverage',
+                        title: 'line coverage 75%, branch coverage 72.3%',
+                        summary: 'Uint test coverage',
+                        status: 'COMPLETED',
                         detailsURL: "${env.BUILD_URL}",
                     )
                 }

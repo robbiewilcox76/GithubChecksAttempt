@@ -32,9 +32,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "x",
+    "git-widget-placeholder": "y",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/robbiewilcox/Desktop/Projects/GithubChecksAttempt"
   }
