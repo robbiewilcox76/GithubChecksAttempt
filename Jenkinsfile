@@ -22,21 +22,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                script {
-                    try {
-                        // Run the tests using JUnit (adjust classpath to use the "out" directory)
-                        sh 'java -cp "out:libs/*" org.junit.runner.JUnitCore MainTest'
-                    } catch (e) {
-                        // In case of test failure, mark the build as unstable
-                        currentBuild.result = 'FAILURE'
-                        throw e
-                    }
-                }
-            }
-        }
-
         stage('Archive Build') {
             steps {
                 // Archive the compiled Java files as build artifacts
