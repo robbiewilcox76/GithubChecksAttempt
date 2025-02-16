@@ -67,8 +67,8 @@ pipeline {
                         status: 'COMPLETED',
                         conclusion: 'FAILURE',
                         detailsURL: "${env.BUILD_URL}",
-                        currentBuild.result = 'FAILURE'
                     )
+                    currentBuild.result = 'FAILURE'
                 }
             }
         }
