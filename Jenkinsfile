@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Compile') {
+        stage('Build') {
             steps {
                 script {
                     // Start the check
@@ -35,8 +35,8 @@ pipeline {
                         // Check failed
                         publishChecks(
                             name: 'Build',
-                            title: 'Build Stage', 
-                            summary: 'Build failed :(', 
+                            title: 'Build Stage',
+                            summary: 'Build failed :(',
                             status: 'COMPLETED',
                             conclusion: 'FAILURE',
                             detailsURL: "${env.BUILD_URL}",
@@ -64,6 +64,20 @@ pipeline {
                         summary: 'Dummy Check', 
                         status: 'COMPLETED',
                         conclusion: 'SUCCESS',
+                        detailsURL: "${env.BUILD_URL}",
+                    )
+                }
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                script {
+                    publishChecks(
+                        name: 'Unit test coverage',
+                        title: 'line coverage 75%, branch coverage 72.3%',
+                        summary: 'Uint test coverage',
+                        status: 'COMPLETED',
                         detailsURL: "${env.BUILD_URL}",
                     )
                 }
