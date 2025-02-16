@@ -47,7 +47,6 @@ stages {
             }
         }
     }
-}
 
         stage('Archive Build') {
             steps {
