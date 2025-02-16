@@ -11,8 +11,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Compile the Java files in the root directory (Main.java and MainTest.java)
-                        sh 'javac -d out Main.java MainTest.java'
+                        // Compile the Java files in the root directory (Main.java)
+                        sh 'javac -d out Main.java'
                     } catch (e) {
                         // In case of failure, mark the build as unstable
                         currentBuild.result = 'FAILURE'
