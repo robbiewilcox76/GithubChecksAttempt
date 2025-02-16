@@ -40,13 +40,11 @@ pipeline {
         success {
             echo 'Build and tests succeeded.'
             // Report success to GitHub Checks
-            githubChecks(name: 'Build', description: 'Build completed successfully', state: 'success')
         }
 
         failure {
             echo 'Build or tests failed.'
             // Report failure to GitHub Checks
-            githubChecks(name: 'Build', description: 'Build failed', state: 'failure')
         }
     }
 }
